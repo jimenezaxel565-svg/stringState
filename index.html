@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>React | Props (Propiedades)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --bg-dark: #0a0c10;
+            --card-bg: #0f1117;
+            --react-blue: #61DAFB;
+            --react-light: #8ad4ff;
+            --react-cyan: #b3e4ff;
+            --text-light: #ffffff;
+            --text-muted: #9ca3af;
+            --border-subtle: #2a2f3a;
+            --font-main: 'Outfit', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+            --safe-margin: clamp(24px, 8vw, 48px);
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .hero-portada {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow-y: auto;
+            background-color: var(--card-bg);
+            background-image: 
+                radial-gradient(circle at 70% 80%, rgba(97, 218, 251, 0.08) 0%, rgba(0, 0, 0, 0) 70%),
+                linear-gradient(rgba(97, 218, 251, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(97, 218, 251, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 var(--safe-margin);
+        }
+
+        .bg-text {
+            position: absolute;
+            color: rgba(97, 218, 251, 0.04);
+            font-family: var(--font-code);
+            font-size: 13px;
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 580px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+        }
+
+        .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        h1 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--react-blue), var(--react-light), var(--react-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(97, 218, 251, 0.2);
+            font-size: clamp(2.8rem, 10vw, 4.8rem);
+            line-height: 1.1;
+        }
+
+        p {
+            line-height: 1.5;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 90%;
+        }
+
+        .badge {
+            background: rgba(97, 218, 251, 0.1);
+            color: var(--react-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+
+        .react-logo svg {
+            width: 52px;
+            height: 52px;
+            filter: drop-shadow(0 0 10px rgba(97, 218, 251, 0.4));
+        }
+
+        .animate-content { opacity: 0; }
+
+        code {
+            font-family: var(--font-code);
+            background: rgba(97, 218, 251, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
+            color: var(--react-light);
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.8rem; }
+            p { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-portada">
+    <div class="bg-text" style="top: 15%; left: 10%;"><i class="fas fa-arrow-down"></i> < Tarjeta user={datos} /></div>
+    <div class="bg-text" style="top: 35%; right: 15%;"><i class="fas fa-random"></i> const { items } = props;</div>
+    <div class="bg-text" style="bottom: 25%; left: 5%;"><i class="fas fa-link"></i> Inyectar funciones (Callbacks)</div>
+    <div class="bg-text" style="bottom: 10%; right: 20%;"><i class="fas fa-shield-alt"></i> Read-Only (Inmutables)</div>
+    
+    <div class="content-wrapper">
+        <div class="react-logo animate-content">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-120 -120 240 240">
+                <circle cx="0" cy="0" r="20" fill="#61dafb" />
+                <g fill="none" stroke="#61dafb" stroke-width="14">
+                    <ellipse rx="110" ry="42" />
+                    <ellipse rx="110" ry="42" transform="rotate(60)" />
+                    <ellipse rx="110" ry="42" transform="rotate(120)" />
+                </g>
+            </svg>
+        </div>
+        <span class="label animate-content">React · State Hooks</span>
+        <div class="badge animate-content"><i class="fas fa-sync"></i> Reactivo · Sincrónico · Interactivo</div>
+        <h1 class="animate-content">useState (Strings)</h1>
+        <p class="animate-content">
+            Manejar estados es vital para crear interfaces interactivas. Con useState, vinculamos el valor de un input al estado para que la interfaz reaccione en tiempo real.
+        </p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof gsap === 'undefined') return;
+
+        const elements = document.querySelectorAll('.animate-content');
+        
+        gsap.set(elements, { x: -30, opacity: 0 });
+        
+        gsap.to(elements, {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2
+        });
+        
+        const logo = document.querySelector('.react-logo');
+        if (logo) {
+            gsap.fromTo(logo, 
+                { scale: 0.5, rotation: -45, opacity: 0 },
+                { scale: 1, rotation: 0, opacity: 1, duration: 1, ease: "elastic.out(1, 0.6)" }
+            );
+        }
+    });
+</script>
+</body>
+</html>
